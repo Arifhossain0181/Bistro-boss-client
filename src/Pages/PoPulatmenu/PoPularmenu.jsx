@@ -3,6 +3,7 @@ import SectionTilte from '../../ComPonent/SectionTitle/SectionTilte'
 import  { useState,useEffect } from 'react';
 import Menuitams from '../Shared/Menuiteam/Menuitams'
 const PoPularmenu = () => {
+    
     const [menu, setmenu] = useState([])
     useEffect(() =>{
         fetch('/Menu.json')
@@ -23,6 +24,7 @@ const PoPularmenu = () => {
                     menu.map(item => <Menuitams key={item._id } item={item}></Menuitams>)
                 }
             </div>
+            <button className='btn btn-outline border-0 border-b-4 mt-4 text-center'>View full menu </button>
         </section>
     );
 };
