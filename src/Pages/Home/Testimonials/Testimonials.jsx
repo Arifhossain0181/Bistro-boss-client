@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 const Testimonials = () => {
   const [reviws, setres] = useState([]);
   useEffect(() => {
-    fetch(`Revious.json`)
+    fetch(`http://localhost:5000/remenu`)
       .then((res) => res.json())
       .then((data) => {
         setres(data);
