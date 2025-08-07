@@ -44,8 +44,14 @@ const AuthProvider = ({children}) => {
         setloading(true);
         return signOut(auth)
     }
+    // uPdate user Profile
+    const uPdateProfile =(name ,Photo) =>{
+  return    uPdateProfile(auth,currentuser ,{
+        displayName:name,PhotoURL:Photo
+      })
+    }
     const authinfo ={
-        user,loading,createuser,signwithemailPassword,logout
+        user,loading,createuser,signwithemailPassword,logout,uPdateProfile
     }
     return (
         <AuthContext.Provider value={authinfo}>

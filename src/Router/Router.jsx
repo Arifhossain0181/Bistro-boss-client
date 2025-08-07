@@ -8,7 +8,9 @@ import Menu from '../Pages/Menu/Menu'
 import Order from '../Pages/Order/Order/Order'
 import Login from '../Pages/Login/Login'
 import SignUP from '../Pages/SignuP/SignUP'
+import PrivateRoute from '../../src/Router/PrivateRoute'
 
+import Secrect from '../../src/Pages/Shared/Secret/Secrect'
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +34,10 @@ export const router = createBrowserRouter([
       },{
         path:'/signuP',
         element:<SignUP></SignUP>
+      },
+      {
+        path:'/Secrect',
+        element:<PrivateRoute><Secrect></Secrect></PrivateRoute>
       }
     ]
   },
