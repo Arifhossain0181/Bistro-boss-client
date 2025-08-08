@@ -3,8 +3,9 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../contextProvider/AuthProvider"; // ✅
 import { useContext } from "react";
 import { MdShoppingCart } from "react-icons/md";
-
+import UseCarts from '../../Hooks/Usecarts'
 const Navbar = () => {
+  const [cart] = UseCarts()
   const { user, logout } = useContext(AuthContext);
   const handleLogout = () => {
     logout()
@@ -13,6 +14,9 @@ const Navbar = () => {
         console.log(error);
       });
   };
+
+
+
   const links = (
     <>
       <NavLink to="/">Home</NavLink>
@@ -21,7 +25,7 @@ const Navbar = () => {
       <NavLink to="/Secrect">Secrect</NavLink>
       <NavLink to="/">
         <button className="btn "><MdShoppingCart className="mr-2" />
-    <div className="badge badge-sm badge-secondary mr-2">+0</div>
+    <div className="badge badge-sm badge-secondary mr-2">{cart?.length}</div>
         </button>
       </NavLink>
       {user ? (
