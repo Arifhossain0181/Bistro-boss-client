@@ -2,18 +2,19 @@ import React from "react";
 import Auth from "../../Hooks/Auth";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from 'axios';
+import UseCarts from '../../Hooks/Usecarts'
 import UseAxioshook from '../../Hooks/UseAxioshook'
 const Foodcard = ({ item }) => {
   const { name, recipe, price, category, image ,_id} = item;
   const { user } = Auth();
   const navigate = useNavigate();
   const location = useLocation();
-  const handlecart = (food) => {
+  const [,refetch] = UseCarts()
+  const handlecart = () => {
     const axiossecure =UseAxioshook()
     if (user && user.email) {
 // send cart item to the daabase
-      console.log(user.email,food)
+     
       const cartItem ={
       manuId:_id,
       email:user.email,
@@ -26,7 +27,9 @@ const Foodcard = ({ item }) => {
         if(res.data.insertedId){
           Swal.fire(`${name} Add to the cart`);
         }
-      })
+      });
+      //refetch cart to uPdate to the cart items count
+      refetch()
     } else {
       Swal.fire({
         title: "You are not login",
@@ -58,7 +61,7 @@ const Foodcard = ({ item }) => {
           <p>{recipe}</p>
           <div className="card-actions justify-center">
             <button
-              onClick={() => handlecart(item)}
+              onClick={ handlecart}
               className="btn btn-outline bg-slate-500 border-0 border-b-4 border-orange-400"
             >
               Add to Cart
