@@ -11,6 +11,7 @@ import SignUP from '../Pages/SignuP/SignUP'
 import PrivateRoute from '../../src/Router/PrivateRoute'
 import Dashboard from '../Layout/Dashboard'
 import Cart  from '../Pages/Dashboard/Cart/Cart'
+import Alluser from '../Pages/Dashboard/Cart/Allusers/Alluser'
 import Secrect from '../../src/Pages/Shared/Secret/Secrect'
 export const router = createBrowserRouter([
   {
@@ -43,11 +44,16 @@ export const router = createBrowserRouter([
     ]
   },{
     path:'/dashboard',
-    element:<Dashboard></Dashboard>,
+    element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children:[
       {
         path:'cart',
         element:<Cart></Cart>
+      },
+      //adimn route
+      {
+        path:'allusers',
+        element:<Alluser></Alluser>
       }
     ]
   }

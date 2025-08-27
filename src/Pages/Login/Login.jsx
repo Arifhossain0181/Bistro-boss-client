@@ -1,7 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
+import Sociallogin from "../../ComPonent/socilaLogin/Sociallogin";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -14,16 +14,14 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../../contextProvider/AuthProvider";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 const Login = () => {
   const [disabled, setdisable] = useState(true);
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const from = location.state?.from?.pathname || '/'
-
-
+  const from = location.state?.from?.pathname || "/";
 
   const { signwithemailPassword } = useContext(AuthContext);
 
@@ -61,7 +59,7 @@ const Login = () => {
     `,
         },
       });
-      navigate(from,{replace:true})
+      navigate(from, { replace: true });
     });
   };
   const validatecaP = (e) => {
@@ -141,11 +139,13 @@ const Login = () => {
               <h5>
                 <small>
                   New Here? <Link to="/signuP"> Create an Account</Link>
+                  <Sociallogin ></Sociallogin>
                 </small>
               </h5>
             </div>
           </div>
         </div>
+        
       </div>
     </>
   );

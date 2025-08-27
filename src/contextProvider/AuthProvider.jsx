@@ -1,9 +1,8 @@
 import React from 'react';
 import {useState , useEffect} from 'react'
 import {createContext ,} from 'react'
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile,signInWithPopup,GoogleAuthProvider } from "firebase/auth";
 import app from '../../src/Firebase/Firebase.config.js'
-import { onAuthStateChanged , createUserWithEmailAndPassword ,signInWithEmailAndPassword ,signOut } from "firebase/auth";
 
 
 
@@ -14,6 +13,8 @@ export const AuthContext = createContext(null)
 const AuthProvider = ({children}) => {
     const [user, setuser] = useState(null);
     const [loading,setloading] = useState(true);
+        const googleProvider = new GoogleAuthProvider();
+
 
 
     useEffect(()=>{
@@ -44,14 +45,25 @@ const AuthProvider = ({children}) => {
         setloading(true);
         return signOut(auth)
     }
-    // uPdate user Profile
-    const uPdateProfile =(name ,Photo) =>{
-  return    uPdateProfile(auth,currentuser ,{
-        displayName:name,PhotoURL:Photo
-      })
-    }
+        // uPdate user Profile
+        const uPdateProfile = (name, photo) => {
+            const user = auth.currentUser;
+            if (!user) return Promise.reject(new Error("No current user"));
+            return updateProfile(user, {
+                displayName: name,
+                photoURL: photo
+            });
+        }
+        //Google sign in
+        const googleSignIn=() =>{
+            setloading(true)
+            return signInWithPopup(auth, googleProvider)
+        }
+
+
+
     const authinfo ={
-        user,loading,createuser,signwithemailPassword,logout,uPdateProfile
+        user,loading,createuser,signwithemailPassword,logout,uPdateProfile,googleSignIn
     }
     return (
         <AuthContext.Provider value={authinfo}>
