@@ -2,10 +2,11 @@ import React from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import { FaShoppingCart ,FaHome ,FaCalendar ,FaAd,FaList,FaSearch ,FaEnvelope ,FaUtensilSpoon ,FaUsers ,FaBook} from "react-icons/fa";
 import UseCarts from "../Hooks/Usecarts";
+import Useadmin from '../Hooks/Useadmin'
 const Dashboard = () => {
   const [cart ,refetch] = UseCarts();
   // todo : get is dmin value from database
-  const isadmin = true;
+  const isadmin = Useadmin();
   return (
     <div className="flex">
       <div className="w64 min-h-screen bg-amber-600">
