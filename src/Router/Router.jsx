@@ -12,6 +12,8 @@ import PrivateRoute from '../../src/Router/PrivateRoute'
 import Dashboard from '../Layout/Dashboard'
 import Cart  from '../Pages/Dashboard/Cart/Cart'
 import Alluser from '../Pages/Dashboard/Cart/Allusers/Alluser'
+import Additem from '../../src/Pages/Dashboard/Additem/Additem'
+import Adminroutes from '../Router/Adminroutes'
 import Secrect from '../../src/Pages/Shared/Secret/Secrect'
 export const router = createBrowserRouter([
   {
@@ -52,8 +54,13 @@ export const router = createBrowserRouter([
       },
       //adimn route
       {
+        path:'additem',
+        element:<Adminroutes><Additem></Additem></Adminroutes>
+
+      },
+      {
         path:'allusers',
-        element:<Alluser></Alluser>
+        element:<Adminroutes><Alluser></Alluser></Adminroutes>
       }
     ]
   }
