@@ -15,6 +15,7 @@ import Alluser from '../Pages/Dashboard/Cart/Allusers/Alluser'
 import Additem from '../../src/Pages/Dashboard/Additem/Additem'
 import Adminroutes from '../Router/Adminroutes'
 import Secrect from '../../src/Pages/Shared/Secret/Secrect'
+import  Manageitem from '../Pages/Dashboard/Manageitem/Manageitem'
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
         path:'additem',
         element:<Adminroutes><Additem></Additem></Adminroutes>
 
+      },
+      {
+        path: 'manageitems',
+        element: <Adminroutes><Manageitem /></Adminroutes>
       },
       {
         path:'allusers',
