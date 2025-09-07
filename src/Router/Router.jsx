@@ -16,6 +16,7 @@ import Additem from '../../src/Pages/Dashboard/Additem/Additem'
 import Adminroutes from '../Router/Adminroutes'
 import Secrect from '../../src/Pages/Shared/Secret/Secrect'
 import  Manageitem from '../Pages/Dashboard/Manageitem/Manageitem'
+import UPdateitem from '../../src/Pages/Dashboard/UPdateitem/UPdateitem'
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +63,11 @@ export const router = createBrowserRouter([
       {
         path: 'manageitems',
         element: <Adminroutes><Manageitem /></Adminroutes>
+      },
+      {
+        path:'uPdateitem/:id',
+        element:<Adminroutes><UPdateitem></UPdateitem></Adminroutes>
+        ,loader:({params})=> fetch(`http://localhost:5000/menu/${params.id}`)
       },
       {
         path:'allusers',

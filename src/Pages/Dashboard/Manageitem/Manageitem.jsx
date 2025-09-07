@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import UseAxioshook from "../../../Hooks/UseAxioshook";
 import useMenu from "../../../Hooks/UseMenu";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Manageitem = () => {
   const [menu, loading, refetch] = useMenu();
@@ -92,12 +93,14 @@ const Manageitem = () => {
                   </button>
                 </td>
                 <td>
-                  <button
+                 <Link to={`/dashboard/uPdateitem/${item._id}`}>
+                   <button
                     onClick={() => handleUpdate(item)}
                     className="btn btn-ghost hover:bg-blue-600"
                   >
                     <FaEdit />
                   </button>
+                 </Link>
                 </td>
               </tr>
             ))}
