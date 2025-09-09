@@ -3,6 +3,8 @@ import UseCarts from "../../../Hooks/Usecarts";
 import { FaTrashAlt } from "react-icons/fa";
 import UseAxioshook from "../../../Hooks/UseAxioshook";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+
 const Cart = () => {
   const [cart, refetch] = UseCarts();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
@@ -20,11 +22,11 @@ const Cart = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiossecure.delete(`/carts/${id}`).then((res) => {
-          if (res.data.deleteCount > 0) {
+          if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({
-              title: "deleted",
-              text: "confirm",
+              title: "Deleted",
+              text: "Item removed from cart",
               icon: "success",
             });
           }
@@ -37,7 +39,13 @@ const Cart = () => {
       <div className="flex justify-evenly items-center text-4xl">
         <div className="text-4xl">Itms:{cart.length}</div>
         <div>Itms:{totalPrice}</div>
-        <button className="btn btn-active text-4xl">Pay</button>
+        {cart.length ? (
+          <Link to="/dashboard/Payment"></Link>
+        ) : (
+          <button disabled={!cart.length} className="btn btn-active text-4xl">
+            Pay
+          </button>
+        )}
       </div>
       <div className="overflow-x-auto">
         <table className="table w-full">

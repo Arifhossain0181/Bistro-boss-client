@@ -14,6 +14,7 @@ import Cart  from '../Pages/Dashboard/Cart/Cart'
 import Alluser from '../Pages/Dashboard/Cart/Allusers/Alluser'
 import Additem from '../../src/Pages/Dashboard/Additem/Additem'
 import Adminroutes from '../Router/Adminroutes'
+import Payment from '../../src/Pages/Dashboard/Payment/Payment'
 import Secrect from '../../src/Pages/Shared/Secret/Secrect'
 import  Manageitem from '../Pages/Dashboard/Manageitem/Manageitem'
 import UPdateitem from '../../src/Pages/Dashboard/UPdateitem/UPdateitem'
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path:'cart',
         element:<Cart></Cart>
+      },
+      {
+        path:'Payment',
+        element:<Payment></Payment>
       },
       //adimn route
       {

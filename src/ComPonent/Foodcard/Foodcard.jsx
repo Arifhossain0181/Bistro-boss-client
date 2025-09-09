@@ -9,9 +9,9 @@ const Foodcard = ({ item }) => {
   const { user } = Auth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [,refetch] = UseCarts()
+  const [, refetch] = UseCarts();
+  const axiossecure = UseAxioshook();
   const handlecart = () => {
-    const axiossecure =UseAxioshook()
     if (user && user.email) {
 // send cart item to the daabase
      

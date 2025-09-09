@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { FaUtensils } from "react-icons/fa";
 import Swal from "sweetalert2";
+import UseAxioshook from "../../../Hooks/UseAxioshook";
 
 // 🔹 Function to upload image to ImgBB
 const uploadImageToImgBB = async (imageFile) => {
@@ -21,6 +22,8 @@ const uploadImageToImgBB = async (imageFile) => {
 const Additem = () => {
   const { register, handleSubmit ,reset } = useForm();
 
+  const axiossecure = UseAxioshook();
+
   const onSubmit = async (data) => {
     try {
       // 1. take selected image file
@@ -33,38 +36,35 @@ const Additem = () => {
       const itemData = {
         name: data.name,
         category: data.category,
-        price: data.price,
-        recip: data.recip,
+        // ensure price is a number
+        price: parseFloat(data.price),
+        // backend expects `recipe` (not `recip`)
+        recipe: data.recip,
         image: imageUrl,
       };
 
       console.log("Final Item Data:", itemData);
 
-     //  4. (Optional) send to backend
-      
-   const menu=   await fetch("http://localhost:5000/menu", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(itemData),
-        
-      });
-      if(menu.ok){
-        reset()
-         Swal.fire({
-        title: "Success!",
-        text: "Item has been added successfully.",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
+      // send to backend using axios instance (includes auth header)
+      const res = await axiossecure.post(`/menu`, itemData);
+      // expect backend to return insertedId or similar
+      if (res?.data?.insertedId) {
+        reset();
+        Swal.fire({
+          title: "Success!",
+          text: "Item has been added successfully.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      } else {
+        console.error("Server responded with unexpected data:", res?.data);
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
-      else {
-      Swal.fire({
-        title: "Error!",
-        text: "Something went wrong.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-    }
     
       
 
