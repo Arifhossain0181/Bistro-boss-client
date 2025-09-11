@@ -12,7 +12,7 @@ const UseAxioshook = () => {
   axiossecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem("access-token");
-      console.log("interceptor is working"),
+      //console.log("interceptor is working"),
         (config.headers.Authorization = `bearer ${token}`);
       return config;
     },

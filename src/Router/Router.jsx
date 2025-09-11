@@ -15,9 +15,11 @@ import Alluser from '../Pages/Dashboard/Cart/Allusers/Alluser'
 import Additem from '../../src/Pages/Dashboard/Additem/Additem'
 import Adminroutes from '../Router/Adminroutes'
 import Payment from '../../src/Pages/Dashboard/Payment/Payment'
+import PaymentHistroy from '../../src/Pages/Dashboard/Payment/PaymentHistory/PaymentHistroy'
 import Secrect from '../../src/Pages/Shared/Secret/Secrect'
 import  Manageitem from '../Pages/Dashboard/Manageitem/Manageitem'
 import UPdateitem from '../../src/Pages/Dashboard/UPdateitem/UPdateitem'
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -58,6 +60,10 @@ export const router = createBrowserRouter([
       {
         path:'Payment',
         element:<Payment></Payment>
+      },
+      {
+        path:'Paymenthistory',
+        element:<PaymentHistroy></PaymentHistroy>
       },
       //adimn route
       {

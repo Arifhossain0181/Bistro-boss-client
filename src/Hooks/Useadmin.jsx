@@ -1,29 +1,30 @@
-
 import { useQuery } from "@tanstack/react-query";
 import Auth from "../Hooks/Auth";
 import UseAxioshook from "../Hooks/UseAxioshook";
 
 const Useadmin = () => {
-	const { user } = Auth();
-	const axiossecure = UseAxioshook();
+  const { user } = Auth();
+  const axiosSecure = UseAxioshook();
 
-	const { data: isadmin = false, isLoading: isAdminLoading, refetch } = useQuery({
-		queryKey: [user?.email, 'isadmin'],
-		enabled: !!user?.email,
-		queryFn: async () => {
-			if (!user?.email) return false;
-			try {
-				const res = await axiossecure.get(`/users/admin/${user.email}`);
-				// normalize to boolean, never undefined
-				return res.data?.isAdmin;
-			} catch (err) {
-				// on error return false so react-query data is not undefined
-				return false;
-			}
-		}
-	});
+  const {
+    data: isAdmin = false, // ✅ capitalized naming
+    isLoading: isAdminLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["isAdmin", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      if (!user?.email) return false;
+      try {
+        const res = await axiosSecure.get(`/users/admin/${user.email}`);
+        return res.data?.isAdmin === true; // ✅ ensure boolean
+      } catch (err) {
+        return false; // ✅ fallback if request fails
+      }
+    },
+  });
 
-	return [isadmin, isAdminLoading, refetch];
+  return [isAdmin, isAdminLoading, refetch];
 };
 
 export default Useadmin;

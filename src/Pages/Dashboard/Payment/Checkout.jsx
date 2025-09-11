@@ -3,7 +3,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import UseAxioshook from "../../../Hooks/UseAxioshook";
 import Usecarts from "../../../Hooks/Usecarts";
 import Auth from "../../../Hooks/Auth";
-
+import Swal from "sweetalert2";
 const Checkout = () => {
   const [error, setError] = useState("");
   const [transId, setTransId] = useState("");
@@ -13,7 +13,7 @@ const Checkout = () => {
   const stripe = useStripe();
   const elements = useElements();
   const axiossecure = UseAxioshook();
-  const [cart] = Usecarts();
+  const [cart, refetch] = Usecarts();
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
@@ -54,6 +54,29 @@ const Checkout = () => {
       console.log("Payment succeeded:", paymentIntent.id);
       setTransId(paymentIntent.id);
       setError("");
+      //now save the Payment in the database
+      const Paument = {
+        email: user.email,
+        price: totalPrice,
+        data: new Date(), //utc data convert use moment js to
+        cartIds: cart.map((item) => item._id),
+        menuItemIds: cart.map((item) => item.manuId),
+        status: "Pending",
+        transId: paymentIntent.id,
+      };
+      const res = await axiossecure.post("/Payment", Paument);
+
+      //console.log(res.data ,'aadkjfdk')
+      refetch();
+      if (res.data?.Paymentresult?.insertedId) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Thank you for your taka",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     }
   };
 
